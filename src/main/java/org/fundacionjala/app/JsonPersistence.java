@@ -8,32 +8,33 @@ import java.io.Writer;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.stream.JsonReader;
+import org.fundacionjala.app.quizz.model.Quiz;
 
 public class JsonPersistence {
     public static void main(String[] args) {
         Person person = new Person("Elon", "Musk", 49);
-        writeJsonFile(person);
+        //writeJsonFile(person);
 
-        Person parsedPerson = readJsonFile();
-        System.out.println(parsedPerson);
+        //Person parsedPerson = readJsonFile();
+        //System.out.println(parsedPerson);
     }
 
-    private static Person readJsonFile() {
+    public static Quiz readJsonFile() {
         Gson gson = new Gson();
-        Person person = null;
-        try (JsonReader reader = new JsonReader(new FileReader("./myForm.json"))) {
-            person = gson.fromJson(reader, Person.class);
+        Quiz quiz = null;
+        try (JsonReader reader = new JsonReader(new FileReader("./myQuiz.json"))) {
+            quiz = gson.fromJson(reader, Quiz.class);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
-        return person;
+        return quiz;
     }
 
-    public static void writeJsonFile(Person person) {
+    public static void writeJsonFile(Quiz quiz) {
         Gson gson = new Gson();
-        try (Writer writer = new FileWriter("./myForm.json")) {
-            gson.toJson(person, writer);
+        try (Writer writer = new FileWriter("./myQuiz.json")) {
+            gson.toJson(quiz, writer);
         } catch (JsonIOException | IOException exception) {
             exception.printStackTrace();
         }
